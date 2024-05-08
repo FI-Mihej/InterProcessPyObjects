@@ -1,0 +1,5 @@
+hatch
+twine
+numpy
+py-cpuinfo
+cengal_light
