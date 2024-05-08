@@ -1,4 +1,4 @@
-![GitHub tag (with filter)](https://img.shields.io/github/v/tag/FI-Mihej/InterProcessPyObjects) ![Static Badge](https://img.shields.io/badge/OS-Linux_%7C_Windows_%7C_macOS-blue) ![Static Badge](https://img.shields.io/badge/coverage-47%25-blue) ![Static Badge](https://img.shields.io/badge/covered_lines_of_code-2508-blue)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/FI-Mihej/InterProcessPyObjects) ![Static Badge](https://img.shields.io/badge/OS-Linux_%7C_Windows_%7C_macOS-blue)
 
 ![PyPI - Version](https://img.shields.io/pypi/v/InterProcessPyObjects) ![PyPI - Format](https://img.shields.io/pypi/format/cengal-light?color=darkgreen) ![Static Badge](https://img.shields.io/badge/wheels-Linux_%7C_Windows_%7C_macOS-blue) ![Static Badge](https://img.shields.io/badge/Architecture-x86__64_%7C_ARM__64-blue) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cengal-light) ![Static Badge](https://img.shields.io/badge/PyPy-3.8_%7C_3.9_%7C_3.10-blue) ![PyPI - Implementation](https://img.shields.io/pypi/implementation/cengal-light) 
 
@@ -9,8 +9,6 @@
 This high-performance package delivers blazing-fast inter-process communication through shared memory, enabling Python objects to be shared across processes with exceptional efficiency. By minimizing the need for frequent serialization-deserialization, it enhances overall speed and responsiveness. The package offers a comprehensive suite of functionalities designed to support a diverse array of Python types and facilitate asynchronous IPC, optimizing performance for demanding applications.
 
 ![title](https://github.com/FI-Mihej/Cengal/raw/master/docs/assets/InterProcessPyObjects/ChartThroughputGiBs.png)
-
-<!-- ![title](../../../../../../../docs/assets/InterProcessPyObjects/ChartThroughputGiBs.png) -->
 
 ## API State
 
@@ -610,7 +608,6 @@ To resolve this, simply increase the size parameter value of SharedMemory. This 
 * OS: Ubuntu 20.04.6 LTS under WSL2. Windows 10
 
 </details>
-<!-- <br> -->
 
 ### Throughput GiB/s
 
@@ -627,8 +624,6 @@ sysbench memory --memory-oper=write run
 #### Results
 
 ![title](https://github.com/FI-Mihej/Cengal/raw/master/docs/assets/InterProcessPyObjects/ChartThroughputGiBs.png)
-
-<!-- ![title](../../../../../../../docs/assets/InterProcessPyObjects/ChartThroughputGiBs.png) -->
 
 `*` [multiprocessing.shared_memory.py](https://github.com/FI-Mihej/Cengal/blob/master/cengal/parallel_execution/asyncio/ashared_memory_manager/versions/v_0/development/plain_python__send_bytes__shared_memory.py) - simple implementation. This is a simple implementation because it uses a similar approach to the one used in `uvloop.*`, `asyncio.*`, `multiprocessing.Queue`, and `multiprocessing.Pipe` benchmarking scripts. Similar implementations are expected to be used by the majority of projects.
 
