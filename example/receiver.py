@@ -76,7 +76,7 @@ async def receiver():
             company_metrics[CompanyMetrics.emails] = tuple()  # 55_335 iterations/seconds
             company_metrics[CompanyMetrics.emails] = ('sails@company.com',)  # 30_314 iterations/seconds
             company_metrics[CompanyMetrics.emails] = ('sails@company.com', 'support@company.com')  # 20_860 iterations/seconds
-            k = company_metrics[CompanyMetrics.websites]  # 380_258.29925590986 iterations/seconds
+            k = company_metrics[CompanyMetrics.websites]  # 380_258 iterations/seconds
             company_metrics[CompanyMetrics.websites] = ['http://company.com', 'http://company.org']  # 10_465 iterations/seconds
             k = sso.str_value  # 228_966 iterations/seconds
             sso.str_value = 'Hello. '  # 52_390 iterations/seconds
