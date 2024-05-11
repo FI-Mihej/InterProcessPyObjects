@@ -55,50 +55,78 @@ async def receiver():
         # An each coroutine should get its own context manager (ASharedMemoryContextManager). Either `asmm` or `ashared_memory_manager` can be used
         ashared_memory_context_manager: ASharedMemoryContextManager = asmm()
 
-        sso: SomeSharedObject = None  # variable for our shared object
-
         async with ashared_memory_context_manager.if_has_messages() as shared_memory:
-            sso = shared_memory.value.take_message()  # 5_833 iterations/seconds
-            company_metrics = sso.company_info.company_metrics  # 12_479 iterations/seconds
-            k = company_metrics[CompanyMetrics.in_a_good_state]  # 1_154_454 iterations/seconds
-            company_metrics[CompanyMetrics.in_a_good_state] = False  # 1_213_175 iterations/seconds
-            company_metrics[CompanyMetrics.in_a_good_state] = None  # 1_188_630 iterations/seconds
-            k = company_metrics[CompanyMetrics.employees]  # 1_498_278 iterations/seconds
-            company_metrics[CompanyMetrics.employees] = 20  # 1_352_799 iterations/seconds
-            company_metrics[CompanyMetrics.employees] += 1  # 247_476 iterations/seconds
+            # Taking a message with an object from the queue.
+            sso: SomeSharedObject = shared_memory.value.take_message()  # 5_833 iterations/seconds
+
+            # We create local variables once in order to access them many times in the future, ensuring high performance.
+            # Applying a principle that is widely recommended for improving Python code.
+            company_metrics: List = sso.company_info.company_metrics  # 12_479 iterations/seconds
+            some_employee: Employee = sso.company_info.some_employee  # 10_568 iterations/seconds
+            data_dict: Dict = sso.data_dict  # 16_362 iterations/seconds
+            numpy_ndarray: np.ndarray = data_dict['key3']  # 26_223 iterations/seconds
+
+        # Optimal work with shared data (through local variables):
+        async with ashared_memory_context_manager as shared_memory:
+            # List
             k = company_metrics[CompanyMetrics.avg_salary]  # 1_535_267 iterations/seconds
+            k = company_metrics[CompanyMetrics.employees]  # 1_498_278 iterations/seconds
+            k = company_metrics[CompanyMetrics.in_a_good_state]  # 1_154_454 iterations/seconds
+            k = company_metrics[CompanyMetrics.websites]  # 380_258 iterations/seconds
+            company_metrics[CompanyMetrics.annual_income] = 2_000_000.0  # 1_380_983 iterations/seconds
+            company_metrics[CompanyMetrics.employees] = 20  # 1_352_799 iterations/seconds
             company_metrics[CompanyMetrics.avg_salary] = 5_000.0  # 1_300_966 iterations/seconds
+            company_metrics[CompanyMetrics.in_a_good_state] = None  # 1_224_573 iterations/seconds
+            company_metrics[CompanyMetrics.in_a_good_state] = False  # 1_213_175 iterations/seconds
             company_metrics[CompanyMetrics.avg_salary] += 1.1  # 299_415 iterations/seconds
+            company_metrics[CompanyMetrics.employees] += 1  # 247_476 iterations/seconds
+            company_metrics[CompanyMetrics.emails] = tuple()  # 55_335 iterations/seconds (memory allocation performance is planned to be improved)
+            company_metrics[CompanyMetrics.emails] = ('sails@company.com',)  # 30_314 iterations/seconds (memory allocation performance is planned to be improved)
+            company_metrics[CompanyMetrics.emails] = ('sails@company.com', 'support@company.com')  # 20_860 iterations/seconds (memory allocation performance is planned to be improved)
+            company_metrics[CompanyMetrics.websites] = ['http://company.com', 'http://company.org']  # 10_465 iterations/seconds (memory allocation performance is planned to be improved)
+            
+            # Method call on a shared object that changes a property through the method
+            some_employee.increase_years_of_employment()  # 80548 iterations/seconds
+
+            # Object properties
             k = sso.int_value  # 850_098 iterations/seconds
+            k = sso.str_value  # 228_966 iterations/seconds
             sso.int_value = 200  # 207_480 iterations/seconds
             sso.int_value += 1  # 152_263 iterations/seconds
-            company_metrics[CompanyMetrics.annual_income] = 2_000_000.0  # 1_380_983 iterations/seconds
-            company_metrics[CompanyMetrics.emails] = tuple()  # 55_335 iterations/seconds
-            company_metrics[CompanyMetrics.emails] = ('sails@company.com',)  # 30_314 iterations/seconds
-            company_metrics[CompanyMetrics.emails] = ('sails@company.com', 'support@company.com')  # 20_860 iterations/seconds
-            k = company_metrics[CompanyMetrics.websites]  # 380_258 iterations/seconds
-            company_metrics[CompanyMetrics.websites] = ['http://company.com', 'http://company.org']  # 10_465 iterations/seconds
-            k = sso.str_value  # 228_966 iterations/seconds
-            sso.str_value = 'Hello. '  # 52_390 iterations/seconds
-            sso.str_value += '!'  # 35_823 iterations/seconds
-            data_dict = sso.data_dict  # 16_362 iterations/seconds
+            sso.str_value = 'Hello. '  # 52_390 iterations/seconds (memory allocation performance is planned to be improved)
+            sso.str_value += '!'  # 35_823 iterations/seconds (memory allocation performance is planned to be improved)
+
+            # Numpy.ndarray
+            numpy_ndarray += 10  # 403_646 iterations/seconds
+            numpy_ndarray -= 15  # 402_107 iterations/seconds
+
+            # Dict
             k = data_dict['key1']  # 87_558 iterations/seconds
-            data_dict['key1'] = 200  # 86_744 iterations/seconds
-            data_dict['key1'] *= 1  # 40_927 iterations/seconds
-            data_dict['key1'] += 3  # 41_409 iterations/seconds
             k = data_dict[('key', 2)]  # 49_338 iterations/seconds
-            data_dict[('key', 2)] = 'value2'  # 31_460 iterations/seconds
-            data_dict[('key', 2)] = data_dict[('key', 2)] + 'd'  # 18_972 iterations/seconds
-            data_dict[('key', 2)] = 'value2'  # 10_941 iterations/seconds
-            data_dict[('key', 2)] += 'd'  # 16_568 iterations/seconds
-            ndarray: np.ndarray = data_dict['key3']  # 26_223 iterations/seconds
-            ndarray += 10  # 403_246 iterations/seconds
-            data_dict['key3'] += 10  # 6_319 iterations/seconds
+            data_dict['key1'] = 200  # 86_744 iterations/seconds
+            data_dict['key1'] += 3  # 41_409 iterations/seconds
+            data_dict['key1'] *= 1  # 40_927 iterations/seconds
+            data_dict[('key', 2)] = 'value2'  # 31_460 iterations/seconds (memory allocation performance is planned to be improved)
+            data_dict[('key', 2)] = data_dict[('key', 2)] + 'd'  # 18_972 iterations/seconds (memory allocation performance is planned to be improved)
+            data_dict[('key', 2)] = 'value2'  # 10_941 iterations/seconds (memory allocation performance is planned to be improved)
+            data_dict[('key', 2)] += 'd'  # 16_568 iterations/seconds (memory allocation performance is planned to be improved)
+
+        # An example of non-optimal work with shared data (without using a local variables):
+        async with ashared_memory_context_manager as shared_memory:
+            # An example of a non-optimal method call (without using a local variable) that changes a property through the method
+            sso.company_info.some_employee.increase_years_of_employment()  # 9_418 iterations/seconds
+
+            # An example of non-optimal work with object properties (without using local variables)
             k = sso.company_info.income  # 20_445 iterations/seconds
             sso.company_info.income = 3_000_000.0  # 13_899 iterations/seconds
             sso.company_info.income *= 1.1  # 17_272 iterations/seconds 
             sso.company_info.income += 500_000.0  # 18_376 iterations/seconds
-            sso.company_info.some_employee.increase_years_of_employment()  # 9_429 iterations/seconds
+            
+            # Example of non-optimal usage of numpy.ndarray without a proper local variable
+            data_dict['key3'] += 10  # 6_319 iterations/seconds
+
+        # Notify the sender about the completion of work on the shared object
+        async with ashared_memory_context_manager as shared_memory:
             sso.some_processing_stage_control = True  # 298_968 iterations/seconds
 
 
