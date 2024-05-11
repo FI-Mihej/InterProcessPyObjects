@@ -115,7 +115,7 @@ classifiers = [
 dependencies = [
     "numpy",
     "py-cpuinfo",
-    "cengal_light",
+    "cengal_light>=4.4.0",
 ]
 
 [project.urls]

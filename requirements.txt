@@ -2,4 +2,4 @@ hatch
 twine
 numpy
 py-cpuinfo
-cengal_light
+cengal_light>=4.4.0
