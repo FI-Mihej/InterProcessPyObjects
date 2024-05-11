@@ -177,6 +177,10 @@ It affects only the following data types:
 
 ### Receiver.py performance measurements
 
+* CPU: i5-3570@3.40GHz (Ivy Bridge)
+* RAM: 32 GBytes, DDR3, dual channel, 655 MHz
+* OS: Ubuntu 20.04.6 LTS under WSL2. Windows 10
+
 ```python
 async with ashared_memory_context_manager.if_has_messages() as shared_memory:
     # Taking a message with an object from the queue.
