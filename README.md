@@ -763,9 +763,9 @@ sysbench memory --memory-oper=write run
 <details>
 <summary title="Benchmarks results"><kbd> Benchmarks results </kbd></summary>
 
-#### Competitors
+#### Competitors:
 
-##### multiprocessing.Manager - dict
+##### 1. multiprocessing.Manager - dict
 
 Pros:
 
@@ -780,7 +780,7 @@ Benchmark scripts:
 
 * [dict__python__multiprocess_dict.py](https://github.com/FI-Mihej/Cengal/blob/master/cengal/parallel_execution/asyncio/ashared_memory_manager/versions/v_0/development/dict__python__multiprocess_dict.py)
 
-##### UltraDict
+##### 2. [UltraDict](https://github.com/ronny-rentner/UltraDict)
 
 Pros:
 
@@ -797,7 +797,7 @@ Benchmark scripts:
 
 * [dict__thirdparty__ultradict.py](https://github.com/FI-Mihej/Cengal/blob/master/cengal/parallel_execution/asyncio/ashared_memory_manager/versions/v_0/development/dict__thirdparty__ultradict.py)
 
-##### shared_memory_dict
+##### 3. [shared_memory_dict](https://github.com/luizalabs/shared-memory-dict)
 
 Pros:
 
@@ -815,7 +815,7 @@ Benchmark scripts:
 
 * [dict__thirdparty__shared_memory_dict.py](https://github.com/FI-Mihej/Cengal/blob/master/cengal/parallel_execution/asyncio/ashared_memory_manager/versions/v_0/development/dict__thirdparty__shared_memory_dict.py)
 
-##### InterProcessPyObjects - IntEnumListStruct
+##### 4. InterProcessPyObjects - IntEnumListStruct
 
 Pros:
 
@@ -863,7 +863,7 @@ company_metrics[CompanyMetrics.avg_salary] = 5_000.0
 company_metrics[CompanyMetrics.avg_salary] += 1.1
 ```
 
-##### InterProcessPyObjects - Dataclass
+##### 5. InterProcessPyObjects - Dataclass
 
 Pros:
 
@@ -884,7 +884,7 @@ Benchmark scripts:
 
 * [dict__shared_objects__static_obj.py](https://github.com/FI-Mihej/Cengal/blob/master/cengal/parallel_execution/asyncio/ashared_memory_manager/versions/v_0/development/dict__shared_objects__static_obj.py)
 
-##### InterProcessPyObjects - Dict
+##### 6. InterProcessPyObjects - Dict
 
 Pros:
 
