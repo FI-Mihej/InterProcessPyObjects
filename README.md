@@ -6,7 +6,7 @@
 
 # InterProcessPyObjects package
 
-> InterProcessPyObjects is a part of the [Cengal](https://github.com/FI-Mihej/Cengal) library. If you have any questions or would like to participate in discussions, feel free to join the [Cengal Discord](https://discord.gg/TAy7xNgR). Your support and involvement are greatly appreciated as Cengal evolves.
+> InterProcessPyObjects is a part of the [Cengal](https://github.com/FI-Mihej/Cengal) library. If you have any questions or would like to participate in discussions, feel free to join the [Cengal Discord](https://discord.gg/sQ6enWBNgt). Your support and involvement are greatly appreciated as Cengal evolves.
 
 This high-performance package delivers blazing-fast inter-process communication through shared memory, enabling Python objects to be shared across processes with exceptional efficiency. By minimizing the need for frequent serialization-deserialization, it enhances overall speed and responsiveness. The package offers a comprehensive suite of functionalities designed to support a diverse array of Python types and facilitate asynchronous IPC, optimizing performance for demanding applications.
 
