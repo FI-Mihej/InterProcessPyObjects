@@ -4,6 +4,8 @@
 
 ![GitHub License](https://img.shields.io/github/license/FI-Mihej/InterProcessPyObjects?color=darkgreen) ![Static Badge](https://img.shields.io/badge/API_status-Stable-darkgreen)
 
+> **!!!** Updated to the multiprocessing (processes > 2) version from Cengal v5.0.0. Documentation and examples will be added later. The old version is available via the following import path: `from ipc_py_objects.versions.v_1 import *`
+
 # InterProcessPyObjects package
 
 > InterProcessPyObjects is a part of the [Cengal](https://github.com/FI-Mihej/Cengal) library. If you have any questions or would like to participate in discussions, feel free to join the [Cengal Discord](https://discord.gg/sQ6enWBNgt). Your support and involvement are greatly appreciated as Cengal evolves.
@@ -968,6 +970,6 @@ https://pypi.org/project/cengal/
 
 # License
 
-Copyright © 2012-2024 ButenkoMS. All rights reserved.
+Copyright © 2012-2026 ButenkoMS. All rights reserved.
 
 Licensed under the Apache License, Version 2.0.
